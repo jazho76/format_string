@@ -15,7 +15,7 @@ An easy mental model to understand format string attacks is to see it this way: 
 
 ## Slots
 
-Concretely on amd64 SysV, integer/pointer args go in `rdi, rsi, rdx, rcx, r8, r9`, then the stack (`[rsp], [rsp+8], ...`). For `printf(fmt, ...)`, `rdi` is fmt, so the variadic slots start at `rsi`:
+Example on amd64, args go in `rdi, rsi, rdx, rcx, r8, r9`, then the stack (`[rsp], [rsp+8], ...`). For `printf(fmt, ...)`, `rdi` is fmt, so the variadic slots start at `rsi`:
 
 | slot | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 |------|-----|-----|-----|-----|-----|--------|----------|
