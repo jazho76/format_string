@@ -31,6 +31,30 @@ The full session is available as:
 asciinema play record.cast
 ```
 
+## Running the lab
+
+Build the docker image:
+
+```
+./build.sh
+```
+
+Start a container:
+
+```
+./run.sh
+```
+
+`run.sh` builds the image if it is missing and drops you into a shell at `/lab` as user `ctf`. The image name defaults to `fmtlab`.
+
+Inside the container:
+
+- `vuln` is the target binary, installed setgid `flag`.
+- `/flag` is readable only by the `flag` group.
+- pwntools, gdb with pwndbg, tmux, and neovim are installed.
+
+Exploiting `vuln` yields a shell in the `flag` group, which can read `/flag`.
+
 ## Target
 
 `src/vuln.c`:
@@ -455,6 +479,5 @@ flag{...}
 The exploit achieves code execution by:
 
 - leaking addresses through the format string.
-- writing a ROP chain to the saved return address.
+- writing a ROP chain to the saved return address skipping canary
 - returning into the chain.
-- preserving the required group privileges.
